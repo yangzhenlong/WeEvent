@@ -9,10 +9,12 @@ nodes=${FISCOBCOS_NODE_INFO}
 echo ${brokerIp}
 echo ${nodes}
 
-echo "==============================================="
+echo "=============================================================================================="
   ## broker update the certificate
   rm -rf  ./weevent-broker/src/main/resources/v2/*
   mv ./ci/certificate/*  ./weevent-broker/src/main/resources/v2/
+
+echo "=============================update processor the config================================================================="
 
   ## update processor the config
     application_properties=./weevent-processor/src/main/resources/application-dev.properties
@@ -28,6 +30,7 @@ echo "==============================================="
     echo "set brokerIp success"
 
 	cat ./weevent-processor/src/main/resources/application-dev.properties
+echo "============ update the governance=================================================================================="
 
 
   ## update the governance
@@ -41,6 +44,7 @@ echo "==============================================="
     fi
     echo "set brokerIp success"
 	cat ./weevent-governance/src/main/resources/application-dev.properties
+echo "========================weevent-broker======================================================================"
 
   ## update the broker ip
 	application_properties=./weevent-broker/src/main/resources/application-dev.properties
@@ -53,7 +57,7 @@ echo "==============================================="
     fi
     echo "set brokerIp success"
 
-	cat ./weevent-governance/src/main/resources/application-dev.properties
+	cat ./weevent-broker/src/main/resources/application-dev.properties
 
   ## update the broker fisco ip
   fisco_properties=./weevent-broker/src/main/resources/fisco.properties
@@ -68,4 +72,6 @@ echo "==============================================="
     echo "set nodes success"
 
 	cat ./weevent-broker/src/main/resources/fisco.properties
+	echo "=============================================================================================="
+
 echo "say hi2"
