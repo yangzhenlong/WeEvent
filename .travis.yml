@@ -13,6 +13,7 @@ branches:
     - master
     - develop
     - governance-review
+    - travis-ci
     - /^v\d+\.\d+\.\d+$/
 
 language: java
