@@ -15,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,9 +33,6 @@ public class TopicHistoricalTest extends JUnitTestBase {
 
     private String token;
 
-
-    @Value("${weevent.url:http://127.0.0.1:7000/weevent}")
-    private String brokerUrl;
 
     private Map<String, Integer> brokerIdMap = new ConcurrentHashMap<>();
 
@@ -57,7 +53,7 @@ public class TopicHistoricalTest extends JUnitTestBase {
 
     //add broker
     public void addBroker() throws Exception {
-        String content = "{\"name\":\"broker2\",\"brokerUrl\":\"" + this.brokerUrl + "\",\"userId\":\"1\"}";
+        String content = "{\"name\":\"broker2\",\"brokerUrl\":\"" + getCiBrokerUrl() + "\",\"userId\":\"1\"}";
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/broker/add").contentType(MediaType.APPLICATION_JSON_UTF8).header(JwtUtils.AUTHORIZATION_HEADER_PREFIX, token).content(content))
                 .andReturn().getResponse();
         Assert.assertEquals(response.getStatus(), HttpStatus.SC_OK);
@@ -69,7 +65,7 @@ public class TopicHistoricalTest extends JUnitTestBase {
     public void testHistoricalDataList() throws Exception {
         String content = "{\"groupId\":\"1\",\"userId\":\"1\",\"brokerId\":\"" + this.brokerIdMap.get("brokerId") + "\",\"beginDate\":\"2019-12-08\",\"endDate\":\"2099-12-15\"}";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/historicalData/list")
-                .contentType(MediaType.APPLICATION_JSON_UTF8).header(JwtUtils.AUTHORIZATION_HEADER_PREFIX,token).content(content)).andReturn();
+                .contentType(MediaType.APPLICATION_JSON_UTF8).header(JwtUtils.AUTHORIZATION_HEADER_PREFIX, token).content(content)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         String result = response.getContentAsString();
         Assert.assertNotNull(result);
@@ -81,7 +77,7 @@ public class TopicHistoricalTest extends JUnitTestBase {
     public void testEventList() throws Exception {
         String content = "{\"groupId\":\"1\",\"userId\":\"1\",\"brokerId\":\"" + this.brokerIdMap.get("brokerId") + "\",\"beginDate\":\"2019-12-08\",\"endDate\":\"2099-12-15\"}";
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/historicalData/eventList")
-                .contentType(MediaType.APPLICATION_JSON_UTF8).header(JwtUtils.AUTHORIZATION_HEADER_PREFIX,token).content(content)).andReturn();
+                .contentType(MediaType.APPLICATION_JSON_UTF8).header(JwtUtils.AUTHORIZATION_HEADER_PREFIX, token).content(content)).andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         String result = response.getContentAsString();
         Assert.assertNotNull(result);
