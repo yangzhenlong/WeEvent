@@ -39,7 +39,7 @@ script:
   - ls
   - pwd
   - chmod +x ./gradlew
-  - ./gradlew build
+  - ./gradlew build -x test
   - ./gradlew jacocoTestReport
 
 after_success:
