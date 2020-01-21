@@ -36,6 +36,7 @@ cache:
 script:
   - chmod +x  ci/script/demo-ci.sh
   - ci/script/demo-ci.sh
+  - cat ci/script/demo-ci.sh
   - ls
   - pwd
   - chmod +x ./gradlew
